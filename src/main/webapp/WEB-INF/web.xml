@@ -42,8 +42,7 @@
 		</listener-class>
 	</listener> 
 	
-	<!-- part of web.xml -->
-	 The definition of the Root Spring Container shared by all Servlets and Filters 
+	<!-- part of web.xml --> 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
