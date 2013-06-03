@@ -22,6 +22,9 @@
 				<td colpan="3"><a target="_blank" href="http://aurin.org.au/"
 					style="margin-top: 5px; margin-right: 10px; width: 440px; height: 100px; background-image: url('./resources/aurin_logo.gif'); z-index: 10000; display: block;"></a></td>
 				<td align="right" rowspan="2" width="100%" id="ext-gen1277"><a
+					target="_blank" href="http://www.ands.org.au/"
+					style="margin-top: 0px;margin-right: 20px; width: 143px; height: 70px; background-image: url('./resources/ands-full-b.png'); z-index: 10000; display: block;"></a></td>
+				<td align="right" rowspan="2" width="100%" id="ext-gen1277"><a
 					target="_blank" href="http://www.csdila.unimelb.edu.au/"
 					style="margin-top: 0px;margin-right: 20px; width: 65px; height: 106px; background-image: url('./resources/csdila_logo.png'); z-index: 10000; display: block;"></a></td>
 				<td align="right" rowspan="2" width="100%"><a target="_blank"
