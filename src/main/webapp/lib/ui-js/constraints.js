@@ -82,7 +82,7 @@ var environmentalVariables = Ext.create('Ext.form.Panel', {
 					}, {
 						xtype : 'checkboxfield',
 						id : 'contamintationId',
-						boxLabel : 'Contamintation'
+						boxLabel : 'Contamination'
 					}, {
 						xtype : 'checkboxfield',
 						id : 'envSignificanceId',

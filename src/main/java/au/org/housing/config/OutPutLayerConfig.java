@@ -43,7 +43,32 @@ public class OutPutLayerConfig{
 	
 	@Value("${areameasure}") 
 	private String areameasure ;
-
+	
+	//@Value("${zoning}") 
+	//private String zoning;
+	
+	//@Value("${avpcc}") 
+	//private String avpcc;	
+	
+	//@Value("${constructionmaterial}") 
+	//private String constructionmaterial;
+	
+	//@Value("${constructionyear}") 
+	//private String constructionyear;
+	
+	//@Value("${renovationyear}") 
+	//private String renovationyear;	
+	
+	//@Value("${bcc}") 
+	//private String bcc;	
+	
+	//@Value("${floorarea_m2}") 
+	//private String floorarea_m2;
+	
+	//@Value("${numberofbedrooms}") 
+	//private String numberofbedrooms;
+	
+	
 	public String getOutputName() {
 		return outputName;
 	}
@@ -123,6 +148,71 @@ public class OutPutLayerConfig{
 	public void setAreameasure(String areameasure) {
 		this.areameasure = areameasure;
 	}
-	
+
+	/*
+	public String getZoning() {
+		return zoning;
+	}
+
+	public void setZoning(String zoning) {
+		this.zoning = zoning;
+	}
+
+	public String getAvpcc() {
+		return avpcc;
+	}
+
+	public void setAvpcc(String avpcc) {
+		this.avpcc = avpcc;
+	}
+
+	public String getConstructionmaterial() {
+		return constructionmaterial;
+	}
+
+	public void setConstructionmaterial(String constructionmaterial) {
+		this.constructionmaterial = constructionmaterial;
+	}
+
+	public String getConstructionyear() {
+		return constructionyear;
+	}
+
+	public void setConstructionyear(String constructionyear) {
+		this.constructionyear = constructionyear;
+	}
+
+	public String getRenovationyear() {
+		return renovationyear;
+	}
+
+	public void setRenovationyear(String renovationyear) {
+		this.renovationyear = renovationyear;
+	}
+
+	public String getBcc() {
+		return bcc;
+	}
+
+	public void setBcc(String bcc) {
+		this.bcc = bcc;
+	}
+
+	public String getFloorarea_m2() {
+		return floorarea_m2;
+	}
+
+	public void setFloorarea_m2(String floorarea_m2) {
+		this.floorarea_m2 = floorarea_m2;
+	}
+
+	public String getNumberofbedrooms() {
+		return numberofbedrooms;
+	}
+
+	public void setNumberofbedrooms(String numberofbedrooms) {
+		this.numberofbedrooms = numberofbedrooms;
+	}
+	*/
 		
 }

@@ -86,7 +86,8 @@ public class DevelpmentAssessmentServiceImpl implements DevelpmentAssessmentServ
 
 		layersValidation();
 		SimpleFeatureCollection pparsCollection = pparseFilter();
-		SimpleFeatureCollection propertyCollection = propertyFilter(pparsCollection);				
+		SimpleFeatureCollection propertyCollection = propertyFilter(pparsCollection);	
+		System.out.println("after propertyCollection");
 
 		String workspace = geoServerConfig.getGsWorkspace() + "_" + username;
 		//		String dataStore = geoServerConfig.getGsAssessmentDatastore();
@@ -228,7 +229,7 @@ public class DevelpmentAssessmentServiceImpl implements DevelpmentAssessmentServ
 
 	private SimpleFeatureCollection propertyFilter(SimpleFeatureCollection pparsCollection) throws PSQLException, IOException, NoSuchAuthorityCodeException, FactoryException, HousingException{
 		SimpleFeatureIterator pparsIterator = null;
-		SimpleFeatureCollection propertyCollection;
+		SimpleFeatureCollection propertyCollection = null;
 		try{
 			propertyFc = postGISService.getFeatureSource(inputLayersConfig.getProperty());		
 			List<Filter> lgaFilters = new ArrayList<Filter>();
@@ -276,7 +277,12 @@ public class DevelpmentAssessmentServiceImpl implements DevelpmentAssessmentServ
 				LOGGER.info("No Properties Found!");
 				throw new HousingException(Messages._NO_FEATURE);				
 			}
-		}finally{
+		}
+		catch (Exception e)
+		{
+			     System.out.println(e.getMessage());
+		}
+		finally{
 			pparsIterator.close();
 		}
 		return propertyCollection;

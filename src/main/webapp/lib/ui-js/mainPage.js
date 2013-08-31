@@ -3,12 +3,15 @@ Ext.onReady(function() {
 
 	analyseBtn_DevelopPotential.disable();
 	analyseBtn_DevelopAssessment.disable();
+	analyseBtn_New.disable();
+	
 	Ext.Ajax.timeout = 14000000;
 
 	alert("Welcome " + username);
 	if (successStatus == "success") {
 		analyseBtn_DevelopPotential.enable();
 		analyseBtn_DevelopAssessment.enable();
+		analyseBtn_New.enable();
 	} else {
 		alert(message);
 	}
@@ -96,7 +99,47 @@ Ext.onReady(function() {
 					bodyStyle : {
 						"margin-left" : "1px"
 					}
-				}],
+				}
+				//Ali
+				, {
+					title : 'Sustainable Affordability Analysis',
+					layout : 'border',
+					items : [{
+						region : 'north',
+						height : 45,
+						split : true
+						//items : [LGA3]
+					}, {
+						region : 'west',
+						autoScroll : true,
+						border : true,
+						width : '52%',
+						items : [leftForm_New],
+						split : true,
+						resizable : false,
+						bodyPadding : 13
+					}, {
+						region : 'east',
+						autoScroll : true,
+						xtype : 'panel',
+						width : '48%',
+						items : [rightForm_New],
+						split : true,
+						resizable : false,
+						bodyPadding : 13
+					}, {
+						region : 'south',
+						xtype : 'panel',
+						height : 70,
+						split : true,
+						items : [footerPanel_Newright],
+						bodyPadding : 10
+					}],					
+					bodyStyle : {
+						"margin-left" : "1px"
+					}
+				  }//end ali				
+				],
 		listeners : {
 			render : function() {
 				this.tabBar.add({

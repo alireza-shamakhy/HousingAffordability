@@ -31,10 +31,12 @@ import au.org.housing.exception.Messages;
 import au.org.housing.service.DevelpmentAssessmentService;
 import au.org.housing.service.FacilitiesBufferService;
 import au.org.housing.service.InitDevelopAssessment;
+import au.org.housing.service.InitDevelopNew;
 import au.org.housing.service.InitDevelopPotential;
 import au.org.housing.service.PostGISService;
 import au.org.housing.service.DevelopmentPotentialService;
 import au.org.housing.service.TransportationBufferService;
+import au.org.housing.service.DevelopmentNewService;
 
 import com.vividsolutions.jts.geom.Geometry;
 
@@ -74,6 +76,12 @@ public class HousingController {
 
 	@Autowired
 	public DevelpmentAssessmentService developAssessment;	
+	
+	@Autowired
+	public InitDevelopNew initNew;	
+	
+	@Autowired
+	public DevelopmentNewService developNewService;		
 	
 	
 	// ////////////////////////////////////////////////////////////////////////
@@ -191,6 +199,7 @@ public class HousingController {
 	}	
 
 	@RequestMapping(method = RequestMethod.POST, value = "/developmentAssessment", consumes="application/json")	
+	@ResponseStatus(HttpStatus.OK)	
 	@ExceptionHandler
 	public @ResponseBody Map<String, Object> developmentAssessment(
 			@RequestBody Map<String, Object> assessmentParams, 
@@ -222,7 +231,90 @@ public class HousingController {
 		request.getSession().setMaxInactiveInterval(60*60);
 		return responseMap;
 	}	
+	
+	//ali
+	@RequestMapping(method = RequestMethod.POST, value = "/developmentNew", headers = "Content-Type=application/json")
+	@ResponseStatus(HttpStatus.OK)	
+	@ExceptionHandler
+	public @ResponseBody Map<String, Object> handleRequestNew(
+			@RequestBody Map<String, Object> NewParams, 
+			HttpServletRequest request,HttpServletResponse response, HttpSession session, Principal principal) throws Exception { 
 
+		String username = principal.getName();
+		Map<String, Object> responseMap = new HashMap<String, Object>();
+		responseMap.put("message", Messages._SUCCESSFULLY_DONE);
+		responseMap.put("successStatus", Messages._SUCCESS);	
+		try{
+			initNew.initParams(NewParams);			
+			developNewService.analyse(username , session);
+		}catch(Exception e){
+			e.printStackTrace();
+			responseMap.put("successStatus", Messages._UNSUCCESS);
+			responseMap.put("message", e.getMessage());
+		}		
+		request.getSession().setMaxInactiveInterval(60*60); 
+		developNewService.setStep("");
+		return responseMap;    	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/map_new")
+	public @ResponseBody Map<String, Object> mapNew(HttpSession session) throws Exception {
+		
+		return developNewService.getOutputLayer();
+	}	
+
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/map_new_chart")
+	public @ResponseBody String mapNewchart(HttpSession session) throws Exception {
+		
+		//return developNewService.getJson();
+		return developNewService.getJsonChart();
+	}	
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/map_new_table")
+	public @ResponseBody String mapNewtable(HttpSession session) throws Exception {
+		
+		//return developNewService.getJson();
+		return developNewService.getJson();
+	}	
+	
+	
+	//@RequestMapping(value = "/", method = RequestMethod.GET, headers={"Accept=text/plain,appliction/json"})
+	@RequestMapping(value = "/table.csv", method = RequestMethod.GET, headers={"Accept=text/csv"})
+	 @ResponseBody
+	public String jsonOutput() {
+		return developNewService.getTable();
+	}
+	
+	//developmentNewTable
+	@RequestMapping(method = RequestMethod.POST, value = "/developmentNewTable", headers = "Content-Type=application/json")
+	@ResponseStatus(HttpStatus.OK)	
+	@ExceptionHandler
+	public @ResponseBody Map<String, Object> handleRequestNewTable(
+			@RequestBody Map<String, Object> NewParams, 
+			HttpServletRequest request,HttpServletResponse response, HttpSession session, Principal principal) throws Exception { 
+
+		String username = principal.getName();
+		Map<String, Object> responseMap = new HashMap<String, Object>();
+		responseMap.put("message", Messages._SUCCESSFULLY_DONE);
+		responseMap.put("successStatus", Messages._SUCCESS);	
+		try{
+			initNew.initParamsCheks(NewParams);			
+			developNewService.analyseTable(username , session);
+		}catch(Exception e){
+			e.printStackTrace();
+			responseMap.put("successStatus", Messages._UNSUCCESS);
+			responseMap.put("message", e.getMessage());
+		}		
+		request.getSession().setMaxInactiveInterval(60*60); 
+		developNewService.setStep("");
+		return responseMap;    	
+	}
+	
+	
+	//end ali	
+	
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/map_assessment")
 	public @ResponseBody Map<String, Object> mapAssessment(HttpSession session) throws Exception {
 		
@@ -250,6 +342,9 @@ public class HousingController {
 //		//		System.out.println("outputLayer.get(maxX)  222 === "+assessmentParams.get("maxX"));
 //		return potentialParams;
 		
+		//Map<String, Object> test;
+		//test = developmentPotentialService.getOutputLayer();
+		//System.out.println(test.toString());
 		return developmentPotentialService.getOutputLayer();
 	}	
 

@@ -15,6 +15,7 @@
 
 <body onload='document.f.j_username.focus();'
 	style='text-align: center;'>
+	<!-- 
 	<table width="100%" height="90px" style="margin-bottom: 1px"
 		id="header">
 		<tbody>
@@ -34,6 +35,28 @@
 
 		</tbody>
 	</table>
+	-->
+	
+	 <table width="100%" height="90px" style="margin-bottom: 1px"
+		id="header">
+		<tbody>
+			<tr>
+			  <td>
+			  	<div style="text-align:center; width:910px; height:140px; margin-left:auto; margin-right:auto;">
+					<img id="Image-Maps_52013080100443291" src= "./resources/Supporter_logos.gif" usemap="#Image-Maps_52013080100443291" border="0" width="910" height="120" alt="" />
+					<map id="_Image-Maps_52013080100443291" name="Image-Maps_52013080100443291">
+					<area shape="rect" coords="0,10,91,113" href="http://www.unimelb.edu.au/" target="_blank"/>
+					<area shape="rect" coords="136,12,273,115" href="http://www.ands.org.au/" target="_blank"/>
+					<area shape="rect" coords="317,12,469,115" href="http://www.aurin.org.au/" target="_blank"/>
+					<area shape="rect" coords="508,10,660,113" href="http://www.innovation.gov.au/Pages/default.aspx" target="_blank"/>
+					<area shape="rect" coords="676,11,792,114" href="http://www.csdila.unimelb.edu.au/" target="_blank"/>
+					<area shape="rect" coords="789,12,905,115" href="http://www.vic.gov.au/" alt="vic" target="_blank"/>
+					</map>
+				</div>
+			  </td>
+			</tr>
+		</tbody>
+	</table>	
 
 	<div class="x-hidden" id="login" align="center"
 		style="margin-top: 50px; margin-bottom: 30px;">

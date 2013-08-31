@@ -140,7 +140,42 @@ public class InputLayersConfig{
 
 	@Value("${appOutcome_desc}") 
 	private String appOutcome_desc;
+	
+///////////////////////////////////////	
+	@Value("${sla_housing}") 
+	private String sla_housing ;
+	
+	@Value("${sla_housing_houseprice_income_ratio}") 
+	private String sla_housing_houseprice_income_ratio;
+	
+	@Value("${propertySlaCode}") 
+	private String propertySlaCode ;
+	
 
+	
+	public String getsla_housing() {
+		return sla_housing;
+	}
+	public void setsla_housing(String sla_housing) {
+		this.sla_housing = sla_housing;
+	}
+	
+	public String getsla_housing_houseprice_income_ratio() {
+		return sla_housing_houseprice_income_ratio;
+	}
+	public void setsla_housing_houseprice_income_ratio(String sla_housing_houseprice_income_ratio) {
+		this.sla_housing_houseprice_income_ratio = sla_housing_houseprice_income_ratio;
+	}
+	
+	public String getPropertySlaCode() {
+		return propertySlaCode;
+	}
+	public void setPropertySlaCode(String propertySlaCode) {
+		this.propertySlaCode = propertySlaCode;
+	}
+
+///////////////////////////////////////////	
+	
 	public String getPpars() {
 		return ppars;
 	}

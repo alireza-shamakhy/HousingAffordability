@@ -70,11 +70,11 @@ public class PostGISServiceImpl implements PostGISService {
 				params.put("user", postGisConfig.getPostgis_user());
 				params.put("passwd", postGisConfig.getPostgis_passwd());
 				params.put(PostgisNGDataStoreFactory.VALIDATECONN.key,"true");
-				params.put( "max connections", 25);
+				params.put( "max connections", 100);
 				params.put( "min connections", 10);
-				params.put( "connection timeout", 1200);
+				params.put( "connection timeout", 10000);
 				params.put( "validating connections", true);				
-				params.put( "fetch size", 100);
+				params.put( "fetch size", 1000);
 				dataStore = DataStoreFinder.getDataStore(params);			
 				LOGGER.info("dataStore.getTypeNames = "+ dataStore.getTypeNames());
 			}

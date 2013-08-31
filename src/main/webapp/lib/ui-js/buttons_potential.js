@@ -1,6 +1,7 @@
 var analyseBtn_DevelopPotential = Ext.create('Ext.Button', {
 	text : 'Analyse',
 	margin : '0 5 8 5',
+	scale   : 'large',
 	handler : function() {		
 
 //	// generate a unique taskId for this request, so that it can
@@ -229,6 +230,7 @@ var analyseBtn_DevelopPotential = Ext.create('Ext.Button', {
 var clearBtn_Potential = Ext.create('Ext.Button', {
 			text : 'Clear',
 			margin : '0 5 8 5',
+			scale   : 'large',
 			handler : function() {
 					
 				Ext.getCmp("dpiId").setValue(0);

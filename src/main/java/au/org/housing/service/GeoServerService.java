@@ -28,6 +28,8 @@ public interface GeoServerService {
 	
 	public boolean publishAssessmentStyle(String styleName) throws HousingException, URISyntaxException ;
 	
+	public boolean publishNewStyle(String styleName) throws HousingException, URISyntaxException ;
+	
 	public String createPotentialRule(String oldRules, int propertyOverlaysNum);
 	
 	public boolean publishPotentialStyle(String sldBody, String styleName) throws HousingException, URISyntaxException;

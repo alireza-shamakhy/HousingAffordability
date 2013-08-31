@@ -12,7 +12,7 @@ Ext.onReady(function() {
 					'Content-Type' : 'application/json'
 				},
 				success : function(response) {
-					var jsonResp = Ext.util.JSON.decode(response.responseText);
+					var jsonResp = Ext.util.JSON.decode(response.responseText);					
 					workspace = jsonResp.workspace;
 					layerName = workspace + ":" + jsonResp.layerName;
 					// lgaLayerName = workspace + ":lga_polygon_ArcGis_metric";
@@ -26,6 +26,9 @@ Ext.onReady(function() {
 				}
 			});
 	function loadMap(workspace, layerName, lgaLayerName, bounds) {
+		
+		
+		
 		var ctrl, toolbarItems = [], action, actions = {};
 		maxBounds = new OpenLayers.Bounds(bounds[0], bounds[1], bounds[2],
 				bounds[3]);
@@ -39,7 +42,7 @@ Ext.onReady(function() {
 			units : 'm'
 		};
 		var osm = new OpenLayers.Layer.OSM();
-
+		var map = new OpenLayers.Map(options);
 		var format = "image/png";
 		tiled = new OpenLayers.Layer.WMS("Housing Layer", "/housing/geoserver/"
 						+ workspace + "/wms", {
@@ -50,6 +53,7 @@ Ext.onReady(function() {
 					transitionEffect : "resize"
 				});
 
+		/*
 		lga = new OpenLayers.Layer.WMS("LGA Layer",
 				"/housing/geoserver/housingWS/wms", {
 					LAYERS : lgaLayerName,
@@ -58,8 +62,30 @@ Ext.onReady(function() {
 				}, {
 					transitionEffect : "resize"
 				});
+		*/		
+		
+		var mercator = new OpenLayers.Projection("EPSG:900913");
+		lga = new OpenLayers.Layer.WMS("LGA Layer",
+	            "/housing/geoserver/housingWS/wms", {
+	                LAYERS : lgaLayerName,
+	                STYLES : '',
+	                format : 'image/png',
+	                tiled : true,
+	                transparent : true,
+	                tilesOrigin : map.maxExtent.left + ',' + map.maxExtent.bottom
+	            }, {
+	                buffer : 0,
+	                displayOutsideMaxExtent : true,
+	                projection : mercator,
+	                reproject : true
+	            });
+		lga.setIsBaseLayer(false);
+		lga.setVisibility(false);
+		lga.setOpacity(0.5);
 
-		var map = new OpenLayers.Map(options);
+		
+
+		
 
 		var measureLength = new GeoExt.ux.MeasureLength({
 					map : map,

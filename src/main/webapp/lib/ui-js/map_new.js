@@ -5,7 +5,7 @@ Ext.onReady(function() {
 	var options, layer;
 	var extent = new OpenLayers.Bounds(-5, 35, 15, 55);
 	Ext.Ajax.request({
-				url : '/housing/housing-controller/map_assessment',
+				url : '/housing/housing-controller/map_new',
 				method : 'GET',
 				async : false,
 				headers : {
@@ -26,6 +26,7 @@ Ext.onReady(function() {
 				}
 			});
 	function loadMap(workspace, layerName, lgaLayerName, bounds) {
+		
 		var ctrl, toolbarItems = [], action, actions = {};
 		maxBounds = new OpenLayers.Bounds(bounds[0], bounds[1], bounds[2],
 				bounds[3]);
@@ -38,7 +39,6 @@ Ext.onReady(function() {
 			maxResolution : 'auto',
 			units : 'm'
 		};
-		
 		var map = new OpenLayers.Map(options);
 		var osm = new OpenLayers.Layer.OSM();
 
@@ -61,8 +61,7 @@ Ext.onReady(function() {
 				}, {
 					transitionEffect : "resize"
 				});
-		*/		
-		
+		*/
 		var mercator = new OpenLayers.Projection("EPSG:900913");
 		lga = new OpenLayers.Layer.WMS("LGA Layer",
 	            "/housing/geoserver/housingWS/wms", {
@@ -81,8 +80,10 @@ Ext.onReady(function() {
 		lga.setIsBaseLayer(false);
 		lga.setVisibility(false);
 		lga.setOpacity(0.5);
-
 		
+		
+
+	
 
 		var measureLength = new GeoExt.ux.MeasureLength({
 					map : map,
@@ -122,6 +123,7 @@ Ext.onReady(function() {
 		// Navigation history - two "button" controls
 		ctrl = new OpenLayers.Control.NavigationHistory();
 		map.addControl(ctrl);
+		
 
 		action = new GeoExt.Action({
 					text : "previous",
@@ -148,7 +150,7 @@ Ext.onReady(function() {
 			layers
 					.set(
 							"legendURL",
-							"/housing/geoserver/housingWS/wms?TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&EXCEPTIONS=application%2Fvnd.ogc.se_xml&FORMAT=image%2Fpng&LAYER="
+							"/housing/geoserver/housingWS/wms?TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&EXCEPTIONS=application%2Fvnd.ogc.se_xml&FORMAT=image%2Fpng&LAYER="					       
 									+ tiled);
 		}
 		var legendPanel = new GeoExt.LegendPanel({
@@ -223,6 +225,7 @@ Ext.onReady(function() {
 													title : feature.fid,
 													source : feature.attributes
 												});
+										alert(feature.fid);
 									});
 							new GeoExt.Popup({
 										title : "Feature Info",

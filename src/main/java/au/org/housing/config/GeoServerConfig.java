@@ -37,7 +37,7 @@ public class GeoServerConfig{
 	private String gsAssessmentLayer; 
 	
 	@Value("${gsAssessmentStyle}") 
-	private String gsAssessmentStyle; 
+	private String gsAssessmentStyle;
 	
 	@Value("${gsPotentialDatastore}")
 	private String gsPotentialDatastore; 		
@@ -46,7 +46,17 @@ public class GeoServerConfig{
 	private String gsPotentialLayer; 
 	
 	@Value("${gsPotentialStyle}") 
-	private String gsPotentialStyle; 	
+	private String gsPotentialStyle; 
+	
+	//new
+	@Value("${gsNewDatastore}")
+	private String gsNewDatastore; 		
+	
+	@Value("${gsNewLayer}") 
+	private String gsNewLayer; 
+	
+	@Value("${gsNewStyle}") 
+	private String gsNewStyle; 	
 	
 	public String getGsWorkspace() {
 		return gsWorkspace;
@@ -103,6 +113,34 @@ public class GeoServerConfig{
 	public void setGsAssessmentStyle(String gsAssessmentStyle) {
 		this.gsAssessmentStyle = gsAssessmentStyle;
 	}
+	
+	//new	
+	public String getGsNewDatastore() {
+		return gsNewDatastore;
+	}
+
+	public void setGsNewDatastore(String gsNewDatastore) {
+		this.gsNewDatastore = gsNewDatastore;
+	}
+
+	public String getGsNewLayer() {
+		return gsNewLayer;
+	}
+	
+	public void setGsNewLayer(String gsNewLayer) {
+		this.gsNewLayer = gsNewLayer;
+	}
+
+	public String getGsNewStyle() {
+		return gsNewStyle;
+	}
+
+	public void setGsNewStyle(String gsNewStyle) {
+		this.gsNewStyle = gsNewStyle;
+	}
+	
+	
+	
 	public String getRESTURL() {
 		return RESTURL;
 	}
