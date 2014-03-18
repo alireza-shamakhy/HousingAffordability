@@ -654,8 +654,8 @@ public class DevelopmentPotentialServiceImpl implements DevelopmentPotentialServ
 			
 /////////////////////////////////////////////////////////////ali //ali		
 			
-			  if (anyOverlayChecked)
-			  {
+//			  if (anyOverlayChecked)
+//			  {
 			  
 				 SimpleFeatureCollection propertiesnew = FeatureCollections.newCollection();
 				 SimpleFeatureTypeBuilder TypeBuilder = new SimpleFeatureTypeBuilder();
@@ -694,9 +694,11 @@ public class DevelopmentPotentialServiceImpl implements DevelopmentPotentialServ
 					}			 
 				  propertyIt.close();
 				 
+        if (anyOverlayChecked)
+        {
 				 
 			      SimpleFeatureSource properies_source=DataUtilities.source(propertiesnew);
-				  SimpleFeatureType properies_schema = properies_source.getSchema();
+				    SimpleFeatureType properies_schema = properies_source.getSchema();
 			      String properties_geometryAttributeName =  properies_schema.getGeometryDescriptor().getLocalName();
 			      Filter filter_properties = ff.bbox(ff.property(properties_geometryAttributeName), propertiesnew.getBounds());
 			      int y23=0;
@@ -729,38 +731,38 @@ public class DevelopmentPotentialServiceImpl implements DevelopmentPotentialServ
 			      }
 			      
 			      
-				  if (overlayMap.get("inundations") != null)
-				  {
-				      Geometry polygon_inundations1 =(Geometry)(overlayMap.get("inundations"));
-				      Object polygon_inundations;
-				      if (polygon_inundations1.getGeometryType().equals("MultiPolygon"))
-				      {
-					       polygon_inundations =(MultiPolygon)overlayMap.get("inundations");		      
-		
-				      }
-				      else
-				      {
-					       polygon_inundations =(Polygon)overlayMap.get("inundations");		      
-		
-				      }
-				      
-				      Filter filter_inundations = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_inundations));		      
-				      Filter filter_properties_inundations = ff.and(filter_properties, filter_inundations);		      
-				      SimpleFeatureIterator features_inundations_iterator = properies_source.getFeatures(filter_properties_inundations).features();
-				      while (features_inundations_iterator.hasNext()) {
-				    	  SimpleFeature sf_inundations = features_inundations_iterator.next();
-				    	  sf_inundations.setAttribute("OL_Inundation", Boolean.TRUE);
-				    	  if (sf_inundations.getAttribute("OverlaysNum")==null)
-				    	  {
-				    		  sf_inundations.setAttribute("OverlaysNum", 1);
-				    	  }
-				    	  else
-				    	  {
-				    	      sf_inundations.setAttribute("OverlaysNum", Integer.parseInt(sf_inundations.getAttribute("OverlaysNum").toString())+1);
-				    	  }
-				      }
-				      features_inundations_iterator.close();
-				  }
+  				  if (overlayMap.get("inundations") != null)
+  				  {
+  				      Geometry polygon_inundations1 =(Geometry)(overlayMap.get("inundations"));
+  				      Object polygon_inundations;
+  				      if (polygon_inundations1.getGeometryType().equals("MultiPolygon"))
+  				      {
+  					       polygon_inundations =(MultiPolygon)overlayMap.get("inundations");		      
+  		
+  				      }
+  				      else
+  				      {
+  					       polygon_inundations =(Polygon)overlayMap.get("inundations");		      
+  		
+  				      }
+  				      
+  				      Filter filter_inundations = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_inundations));		      
+  				      Filter filter_properties_inundations = ff.and(filter_properties, filter_inundations);		      
+  				      SimpleFeatureIterator features_inundations_iterator = properies_source.getFeatures(filter_properties_inundations).features();
+  				      while (features_inundations_iterator.hasNext()) {
+  				    	  SimpleFeature sf_inundations = features_inundations_iterator.next();
+  				    	  sf_inundations.setAttribute("OL_Inundation", Boolean.TRUE);
+  				    	  if (sf_inundations.getAttribute("OverlaysNum")==null)
+  				    	  {
+  				    		  sf_inundations.setAttribute("OverlaysNum", 1);
+  				    	  }
+  				    	  else
+  				    	  {
+  				    	      sf_inundations.setAttribute("OverlaysNum", Integer.parseInt(sf_inundations.getAttribute("OverlaysNum").toString())+1);
+  				    	  }
+  				      }
+  				      features_inundations_iterator.close();
+  				  }
 			      
 			      if (overlayMap.get("neighborhoods") != null)		    	  
 			      {		    	  
@@ -836,373 +838,375 @@ public class DevelopmentPotentialServiceImpl implements DevelopmentPotentialServ
 				      }
 			      
 			      
-				      
-				  if (overlayMap.get("developmentPlans") != null)
-				  {
-					  
-				  
-				      Geometry polygon_developmentPlans1 =(Geometry)(overlayMap.get("developmentPlans"));
-				      Object polygon_developmentPlans;
-				      if (polygon_developmentPlans1.getGeometryType().equals("MultiPolygon"))
-				      {
-					       polygon_developmentPlans =(MultiPolygon)overlayMap.get("developmentPlans");		      
-		
-				      }
-				      else
-				      {
-					       polygon_developmentPlans =(Polygon)overlayMap.get("developmentPlans");		      
-		
-				      }
-				      
-			      
-				      Filter filter_developmentPlans = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_developmentPlans));		      
-				      Filter filter_properties_developmentPlans = ff.and(filter_properties, filter_developmentPlans);		      
-				      SimpleFeatureIterator features_developmentPlans_iterator = properies_source.getFeatures(filter_properties_developmentPlans).features();
-				      while (features_developmentPlans_iterator.hasNext()) {
-				    	  SimpleFeature sf_developmentPlans = features_developmentPlans_iterator.next();
-				    	  sf_developmentPlans.setAttribute("OL_DevelopmentPlan", Boolean.TRUE);
-				    	  if (sf_developmentPlans.getAttribute("OverlaysNum")==null)
-				    	  {
-				    		  sf_developmentPlans.setAttribute("OverlaysNum", 1);
-				    	  }
-				    	  else
-				    	  {
-				    	  
-				    	      sf_developmentPlans.setAttribute("OverlaysNum", Integer.parseInt(sf_developmentPlans.getAttribute("OverlaysNum").toString())+1);
-				    	  }
-				      }
-				      features_developmentPlans_iterator.close();	
-			      
-				  }
+  				      
+  				  if (overlayMap.get("developmentPlans") != null)
+  				  {
+  					  
+  				  
+  				      Geometry polygon_developmentPlans1 =(Geometry)(overlayMap.get("developmentPlans"));
+  				      Object polygon_developmentPlans;
+  				      if (polygon_developmentPlans1.getGeometryType().equals("MultiPolygon"))
+  				      {
+  					       polygon_developmentPlans =(MultiPolygon)overlayMap.get("developmentPlans");		      
+  		
+  				      }
+  				      else
+  				      {
+  					       polygon_developmentPlans =(Polygon)overlayMap.get("developmentPlans");		      
+  		
+  				      }
+  				      
+  			      
+  				      Filter filter_developmentPlans = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_developmentPlans));		      
+  				      Filter filter_properties_developmentPlans = ff.and(filter_properties, filter_developmentPlans);		      
+  				      SimpleFeatureIterator features_developmentPlans_iterator = properies_source.getFeatures(filter_properties_developmentPlans).features();
+  				      while (features_developmentPlans_iterator.hasNext()) {
+  				    	  SimpleFeature sf_developmentPlans = features_developmentPlans_iterator.next();
+  				    	  sf_developmentPlans.setAttribute("OL_DevelopmentPlan", Boolean.TRUE);
+  				    	  if (sf_developmentPlans.getAttribute("OverlaysNum")==null)
+  				    	  {
+  				    		  sf_developmentPlans.setAttribute("OverlaysNum", 1);
+  				    	  }
+  				    	  else
+  				    	  {
+  				    	  
+  				    	      sf_developmentPlans.setAttribute("OverlaysNum", Integer.parseInt(sf_developmentPlans.getAttribute("OverlaysNum").toString())+1);
+  				    	  }
+  				      }
+  				      features_developmentPlans_iterator.close();	
+  			      
+  				  }
 			      
 		 
 			      
-				  if (overlayMap.get("parkings") != null)
-				  {
-				      Geometry polygon_parkings1 =(Geometry)(overlayMap.get("parkings"));
-				      Object polygon_parkings;
-				      if (polygon_parkings1.getGeometryType().equals("MultiPolygon"))
-				      {
-					       polygon_parkings =(MultiPolygon)overlayMap.get("parkings");		      
-		
-				      }
-				      else
-				      {
-					       polygon_parkings =(Polygon)overlayMap.get("parkings");		      
-		
-				      }
-				      	      
-				      Filter filter_parkings = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_parkings));		      
-				      Filter filter_properties_parkings = ff.and(filter_properties, filter_parkings);		      
-				      SimpleFeatureIterator features_parkings_iterator = properies_source.getFeatures(filter_properties_parkings).features();
-				      while (features_parkings_iterator.hasNext()) {
-				    	  SimpleFeature sf_parkings = features_parkings_iterator.next();
-				    	  sf_parkings.setAttribute("OL_Parking", Boolean.TRUE);
-				    	  if (sf_parkings.getAttribute("OverlaysNum")==null)
-				    	  {
-				    		  sf_parkings.setAttribute("OverlaysNum", 1);
-				    	  }
-				    	  else
-				    	  {
-				    	      sf_parkings.setAttribute("OverlaysNum", Integer.parseInt(sf_parkings.getAttribute("OverlaysNum").toString())+1);
-				    	  }
-				      }
-				      features_parkings_iterator.close();		
+  				  if (overlayMap.get("parkings") != null)
+  				  {
+  				      Geometry polygon_parkings1 =(Geometry)(overlayMap.get("parkings"));
+  				      Object polygon_parkings;
+  				      if (polygon_parkings1.getGeometryType().equals("MultiPolygon"))
+  				      {
+  					       polygon_parkings =(MultiPolygon)overlayMap.get("parkings");		      
+  		
+  				      }
+  				      else
+  				      {
+  					       polygon_parkings =(Polygon)overlayMap.get("parkings");		      
+  		
+  				      }
+  				      	      
+  				      Filter filter_parkings = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_parkings));		      
+  				      Filter filter_properties_parkings = ff.and(filter_properties, filter_parkings);		      
+  				      SimpleFeatureIterator features_parkings_iterator = properies_source.getFeatures(filter_properties_parkings).features();
+  				      while (features_parkings_iterator.hasNext()) {
+  				    	  SimpleFeature sf_parkings = features_parkings_iterator.next();
+  				    	  sf_parkings.setAttribute("OL_Parking", Boolean.TRUE);
+  				    	  if (sf_parkings.getAttribute("OverlaysNum")==null)
+  				    	  {
+  				    		  sf_parkings.setAttribute("OverlaysNum", 1);
+  				    	  }
+  				    	  else
+  				    	  {
+  				    	      sf_parkings.setAttribute("OverlaysNum", Integer.parseInt(sf_parkings.getAttribute("OverlaysNum").toString())+1);
+  				    	  }
+  				      }
+  				      features_parkings_iterator.close();		
+  			      
+  				  }
+  			      
+  				  
+  				  if (overlayMap.get("bushfires") != null)
+  				  {
+  					  
+  				  
+  				      Geometry polygon_bushfires1 =(Geometry)(overlayMap.get("bushfires"));
+  				      Object polygon_bushfires;
+  				      if (polygon_bushfires1.getGeometryType().equals("MultiPolygon"))
+  				      {
+  					       polygon_bushfires =(MultiPolygon)overlayMap.get("bushfires");		      
+  		
+  				      }
+  				      else
+  				      {
+  					       polygon_bushfires =(Polygon)overlayMap.get("bushfires");		      
+  		
+  				      }	
+  				      
+  				      Filter filter_bushfires = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_bushfires));		      
+  				      Filter filter_properties_bushfires = ff.and(filter_properties, filter_bushfires);		      
+  				      SimpleFeatureIterator features_bushfires_iterator = properies_source.getFeatures(filter_properties_bushfires).features();
+  				      while (features_bushfires_iterator.hasNext()) {
+  				    	  SimpleFeature sf_bushfires = features_bushfires_iterator.next();
+  				    	  sf_bushfires.setAttribute("OL_Bushfire", Boolean.TRUE);
+  				    	  if (sf_bushfires.getAttribute("OverlaysNum")==null)
+  				    	  {
+  				    		  sf_bushfires.setAttribute("OverlaysNum", 1);
+  				    	  }
+  				    	  else
+  				    	  {
+  				    	       sf_bushfires.setAttribute("OverlaysNum", Integer.parseInt(sf_bushfires.getAttribute("OverlaysNum").toString())+1);
+  				    	  }
+  				      }
+  				      features_bushfires_iterator.close();	
+  				  }
+  				  
+  				  
+  			      
+  				  if (overlayMap.get("erosions") != null)
+  				  {
+  					  
+  					  
+  				      Geometry polygon_erosions1 =(Geometry)(overlayMap.get("erosions"));
+  				      Object polygon_erosions;
+  				      if (polygon_erosions1.getGeometryType().equals("MultiPolygon"))
+  				      {
+  					       polygon_erosions =(MultiPolygon)overlayMap.get("erosions");		      
+  		
+  				      }
+  				      else
+  				      {
+  					       polygon_erosions =(Polygon)overlayMap.get("erosions");		      
+  		
+  				      }	
+  				      
+  				   	      
+  				      Filter filter_erosions = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_erosions));		      
+  				      Filter filter_properties_erosions = ff.and(filter_properties, filter_erosions);		      
+  				      SimpleFeatureIterator features_erosions_iterator = properies_source.getFeatures(filter_properties_erosions).features();
+  				      while (features_erosions_iterator.hasNext()) {
+  				    	  SimpleFeature sf_erosions = features_erosions_iterator.next();
+  				    	  sf_erosions.setAttribute("OL_Erosion", Boolean.TRUE);
+  				    	  if (sf_erosions.getAttribute("OverlaysNum")==null)
+  				    	  {
+  				    		  sf_erosions.setAttribute("OverlaysNum", 1);
+  				    	  }
+  				    	  else
+  				    	  {
+  				    	      sf_erosions.setAttribute("OverlaysNum", Integer.parseInt(sf_erosions.getAttribute("OverlaysNum").toString())+1);
+  				    	  }
+  				      }
+  				      features_erosions_iterator.close();	
+  			      
+  				  }
 			      
-				  }
 			      
 				  
-				  if (overlayMap.get("bushfires") != null)
-				  {
-					  
-				  
-				      Geometry polygon_bushfires1 =(Geometry)(overlayMap.get("bushfires"));
-				      Object polygon_bushfires;
-				      if (polygon_bushfires1.getGeometryType().equals("MultiPolygon"))
-				      {
-					       polygon_bushfires =(MultiPolygon)overlayMap.get("bushfires");		      
-		
-				      }
-				      else
-				      {
-					       polygon_bushfires =(Polygon)overlayMap.get("bushfires");		      
-		
-				      }	
-				      
-				      Filter filter_bushfires = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_bushfires));		      
-				      Filter filter_properties_bushfires = ff.and(filter_properties, filter_bushfires);		      
-				      SimpleFeatureIterator features_bushfires_iterator = properies_source.getFeatures(filter_properties_bushfires).features();
-				      while (features_bushfires_iterator.hasNext()) {
-				    	  SimpleFeature sf_bushfires = features_bushfires_iterator.next();
-				    	  sf_bushfires.setAttribute("OL_Bushfire", Boolean.TRUE);
-				    	  if (sf_bushfires.getAttribute("OverlaysNum")==null)
-				    	  {
-				    		  sf_bushfires.setAttribute("OverlaysNum", 1);
-				    	  }
-				    	  else
-				    	  {
-				    	       sf_bushfires.setAttribute("OverlaysNum", Integer.parseInt(sf_bushfires.getAttribute("OverlaysNum").toString())+1);
-				    	  }
-				      }
-				      features_bushfires_iterator.close();	
-				  }
-				  
-				  
-			      
-				  if (overlayMap.get("erosions") != null)
-				  {
-					  
-					  
-				      Geometry polygon_erosions1 =(Geometry)(overlayMap.get("erosions"));
-				      Object polygon_erosions;
-				      if (polygon_erosions1.getGeometryType().equals("MultiPolygon"))
-				      {
-					       polygon_erosions =(MultiPolygon)overlayMap.get("erosions");		      
-		
-				      }
-				      else
-				      {
-					       polygon_erosions =(Polygon)overlayMap.get("erosions");		      
-		
-				      }	
-				      
-				   	      
-				      Filter filter_erosions = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_erosions));		      
-				      Filter filter_properties_erosions = ff.and(filter_properties, filter_erosions);		      
-				      SimpleFeatureIterator features_erosions_iterator = properies_source.getFeatures(filter_properties_erosions).features();
-				      while (features_erosions_iterator.hasNext()) {
-				    	  SimpleFeature sf_erosions = features_erosions_iterator.next();
-				    	  sf_erosions.setAttribute("OL_Erosion", Boolean.TRUE);
-				    	  if (sf_erosions.getAttribute("OverlaysNum")==null)
-				    	  {
-				    		  sf_erosions.setAttribute("OverlaysNum", 1);
-				    	  }
-				    	  else
-				    	  {
-				    	      sf_erosions.setAttribute("OverlaysNum", Integer.parseInt(sf_erosions.getAttribute("OverlaysNum").toString())+1);
-				    	  }
-				      }
-				      features_erosions_iterator.close();	
-			      
-				  }
-			      
-			      
-				  
-				  if (overlayMap.get("vegprotections") != null)
-				  {
-					  
-				      Geometry polygon_vegprotections1 =(Geometry)(overlayMap.get("vegprotections"));
-				      Object polygon_vegprotections;
-				      if (polygon_vegprotections1.getGeometryType().equals("MultiPolygon"))
-				      {
-					       polygon_vegprotections =(MultiPolygon)overlayMap.get("vegprotections");		      
-		
-				      }
-				      else
-				      {
-					       polygon_vegprotections =(Polygon)overlayMap.get("vegprotections");		      
-		
-				      }	
-				      
-			      
-				      Filter filter_vegprotections = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_vegprotections));		      
-				      Filter filter_properties_vegprotections = ff.and(filter_properties, filter_vegprotections);		      
-				      SimpleFeatureIterator features_vegprotections_iterator = properies_source.getFeatures(filter_properties_vegprotections).features();
-				      while (features_vegprotections_iterator.hasNext()) {
-				    	  SimpleFeature sf_vegprotections = features_vegprotections_iterator.next();
-				    	  sf_vegprotections.setAttribute("OL_VegProtection", Boolean.TRUE);
-				    	  if (sf_vegprotections.getAttribute("OverlaysNum")==null)
-				    	  {
-				    		  sf_vegprotections.setAttribute("OverlaysNum", 1);
-				    	  }
-				    	  else
-				    	  {		    	  
-				    	      sf_vegprotections.setAttribute("OverlaysNum", Integer.parseInt(sf_vegprotections.getAttribute("OverlaysNum").toString())+1);
-				    	  }
-				      }
-				      features_vegprotections_iterator.close();	
-				      
-				  }
-			      
-				  
-				  if (overlayMap.get("salinitys") != null)
-				  {
-				      Geometry polygon_salinitys1 =(Geometry)(overlayMap.get("salinitys"));
-				      Object polygon_salinitys;
-				      if (polygon_salinitys1.getGeometryType().equals("MultiPolygon"))
-				      {
-					       polygon_salinitys =(MultiPolygon)overlayMap.get("salinitys");		      
-		
-				      }
-				      else
-				      {
-					       polygon_salinitys =(Polygon)overlayMap.get("salinitys");		      
-		
-				      }	
-				      
-				    	      
-				      Filter filter_salinitys = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_salinitys));		      
-				      Filter filter_properties_salinitys = ff.and(filter_properties, filter_salinitys);		      
-				      SimpleFeatureIterator features_salinitys_iterator = properies_source.getFeatures(filter_properties_salinitys).features();
-				      while (features_salinitys_iterator.hasNext()) {
-				    	  SimpleFeature sf_salinitys = features_salinitys_iterator.next();
-				    	  sf_salinitys.setAttribute("OL_Salinity", Boolean.TRUE);
-				    	  if (sf_salinitys.getAttribute("OverlaysNum")==null)
-				    	  {
-				    		  sf_salinitys.setAttribute("OverlaysNum", 1);
-				    	  }
-				    	  else
-				    	  {		 		    	  
-				    	       sf_salinitys.setAttribute("OverlaysNum", Integer.parseInt(sf_salinitys.getAttribute("OverlaysNum").toString())+1);
-				    	  }
-				      }
-				      features_salinitys_iterator.close();		
-				  }
-			      
-			      
-				  if (overlayMap.get("contaminations") != null)
-				  {
-				      Geometry polygon_contaminations1 =(Geometry)(overlayMap.get("contaminations"));
-				      Object polygon_contaminations;
-				      if (polygon_contaminations1.getGeometryType().equals("MultiPolygon"))
-				      {
-					       polygon_contaminations =(MultiPolygon)overlayMap.get("contaminations");		      
-		
-				      }
-				      else
-				      {
-					       polygon_contaminations =(Polygon)overlayMap.get("contaminations");		      
-		
-				      }	
-			      
-				      Filter filter_contaminations = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_contaminations));		      
-				      Filter filter_properties_contaminations = ff.and(filter_properties, filter_contaminations);		      
-				      SimpleFeatureIterator features_contaminations_iterator = properies_source.getFeatures(filter_properties_contaminations).features();
-				      while (features_contaminations_iterator.hasNext()) {
-				    	  SimpleFeature sf_contaminations = features_contaminations_iterator.next();
-				    	  sf_contaminations.setAttribute("OL_Contamination", Boolean.TRUE);
-				    	  if (sf_contaminations.getAttribute("OverlaysNum")==null)
-				    	  {
-				    		  sf_contaminations.setAttribute("OverlaysNum", 1);
-				    	  }
-				    	  else
-				    	  {	
-				    	      sf_contaminations.setAttribute("OverlaysNum", Integer.parseInt(sf_contaminations.getAttribute("OverlaysNum").toString())+1);
-				    	  }
-				      }
-				      features_contaminations_iterator.close();	
-				  }
-			      
-				  
-				  if (overlayMap.get("envSignificances") != null)
-				  {
-				      Geometry polygon_envSignificances1 =(Geometry)(overlayMap.get("envSignificances"));
-				      Object polygon_envSignificances;
-				      if (polygon_envSignificances1.getGeometryType().equals("MultiPolygon"))
-				      {
-					       polygon_envSignificances =(MultiPolygon)overlayMap.get("envSignificances");		      
-		
-				      }
-				      else
-				      {
-					       polygon_envSignificances =(Polygon)overlayMap.get("envSignificances");		      
-		
-				      }	
-			      
-				      Filter filter_envSignificances = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_envSignificances));		      
-				      Filter filter_properties_envSignificances = ff.and(filter_properties, filter_envSignificances);		      
-				      SimpleFeatureIterator features_envSignificances_iterator = properies_source.getFeatures(filter_properties_envSignificances).features();
-				      while (features_envSignificances_iterator.hasNext()) {
-				    	  SimpleFeature sf_envSignificances = features_envSignificances_iterator.next();
-				    	  sf_envSignificances.setAttribute("OL_EnvSignificance", Boolean.TRUE);
-				    	  if (sf_envSignificances.getAttribute("OverlaysNum")==null)
-				    	  {
-				    		  sf_envSignificances.setAttribute("OverlaysNum", 1);
-				    	  }
-				    	  else
-				    	  {	
-				    	      sf_envSignificances.setAttribute("OverlaysNum", Integer.parseInt(sf_envSignificances.getAttribute("OverlaysNum").toString())+1);
-				    	  }
-				      }
-				      features_envSignificances_iterator.close();
-				  }
-			      
-			      
-				  if (overlayMap.get("envAudits") != null)
-				  {
-				      Geometry polygon_envAudits1 =(Geometry)(overlayMap.get("envAudits"));
-				      Object polygon_envAudits;
-				      if (polygon_envAudits1.getGeometryType().equals("MultiPolygon"))
-				      {
-					       polygon_envAudits =(MultiPolygon)overlayMap.get("envAudits");		      
-		
-				      }
-				      else
-				      {
-					       polygon_envAudits =(Polygon)overlayMap.get("envAudits");		      
-		
-				      }	
-				      
-				          
-				      Filter filter_envAudits = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_envAudits));		      
-				      Filter filter_properties_envAudits = ff.and(filter_properties, filter_envAudits);		      
-				      SimpleFeatureIterator features_envAudits_iterator = properies_source.getFeatures(filter_properties_envAudits).features();
-				      while (features_envAudits_iterator.hasNext()) {
-				    	  SimpleFeature sf_envAudits = features_envAudits_iterator.next();
-				    	  sf_envAudits.setAttribute("OL_EnvAudit", Boolean.TRUE);
-				    	  if ( sf_envAudits.getAttribute("OverlaysNum")==null)
-				    	  {
-				    		  sf_envAudits.setAttribute("OverlaysNum", 1);
-				    	  }
-				    	  else
-				    	  {	
-				    	   
-				    	      sf_envAudits.setAttribute("OverlaysNum", Integer.parseInt(sf_envAudits.getAttribute("OverlaysNum").toString())+1);
-				    	  }
-				      }
-				      features_envAudits_iterator.close();	
-				  }
-			      
-			      
-				  if (overlayMap.get("heritages") != null)
-				  {
-				  
-				      Geometry polygon_heritages1 =(Geometry)(overlayMap.get("heritages"));
-				      Object polygon_heritages;
-				      if (polygon_heritages1.getGeometryType().equals("MultiPolygon"))
-				      {
-					       polygon_heritages =(MultiPolygon)overlayMap.get("heritages");		      
-		
-				      }
-				      else
-				      {
-					       polygon_heritages =(Polygon)overlayMap.get("heritages");		      
-		
-				      }	
-				      
-				      
-				      Filter filter_heritages = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_heritages));		      
-				      Filter filter_properties_heritages = ff.and(filter_properties, filter_heritages);		      
-				      SimpleFeatureIterator features_heritages_iterator = properies_source.getFeatures(filter_properties_heritages).features();
-				      while (features_heritages_iterator.hasNext()) {
-				    	  SimpleFeature sf_heritages = features_heritages_iterator.next();
-				    	  sf_heritages.setAttribute("OL_Heritage", Boolean.TRUE);
-				    	  if ( sf_heritages.getAttribute("OverlaysNum")==null)
-				    	  {
-				    		  sf_heritages.setAttribute("OverlaysNum", 1);
-				    	  }
-				    	  else
-				    	  {	
-				    	      sf_heritages.setAttribute("OverlaysNum", Integer.parseInt(sf_heritages.getAttribute("OverlaysNum").toString())+1);
-				    	  }
-				      }
-				      features_heritages_iterator.close();	
-			      
-				  }
+  				  if (overlayMap.get("vegprotections") != null)
+  				  {
+  					  
+  				      Geometry polygon_vegprotections1 =(Geometry)(overlayMap.get("vegprotections"));
+  				      Object polygon_vegprotections;
+  				      if (polygon_vegprotections1.getGeometryType().equals("MultiPolygon"))
+  				      {
+  					       polygon_vegprotections =(MultiPolygon)overlayMap.get("vegprotections");		      
+  		
+  				      }
+  				      else
+  				      {
+  					       polygon_vegprotections =(Polygon)overlayMap.get("vegprotections");		      
+  		
+  				      }	
+  				      
+  			      
+  				      Filter filter_vegprotections = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_vegprotections));		      
+  				      Filter filter_properties_vegprotections = ff.and(filter_properties, filter_vegprotections);		      
+  				      SimpleFeatureIterator features_vegprotections_iterator = properies_source.getFeatures(filter_properties_vegprotections).features();
+  				      while (features_vegprotections_iterator.hasNext()) {
+  				    	  SimpleFeature sf_vegprotections = features_vegprotections_iterator.next();
+  				    	  sf_vegprotections.setAttribute("OL_VegProtection", Boolean.TRUE);
+  				    	  if (sf_vegprotections.getAttribute("OverlaysNum")==null)
+  				    	  {
+  				    		  sf_vegprotections.setAttribute("OverlaysNum", 1);
+  				    	  }
+  				    	  else
+  				    	  {		    	  
+  				    	      sf_vegprotections.setAttribute("OverlaysNum", Integer.parseInt(sf_vegprotections.getAttribute("OverlaysNum").toString())+1);
+  				    	  }
+  				      }
+  				      features_vegprotections_iterator.close();	
+  				      
+  				  }
+  			      
+  				  
+  				  if (overlayMap.get("salinitys") != null)
+  				  {
+  				      Geometry polygon_salinitys1 =(Geometry)(overlayMap.get("salinitys"));
+  				      Object polygon_salinitys;
+  				      if (polygon_salinitys1.getGeometryType().equals("MultiPolygon"))
+  				      {
+  					       polygon_salinitys =(MultiPolygon)overlayMap.get("salinitys");		      
+  		
+  				      }
+  				      else
+  				      {
+  					       polygon_salinitys =(Polygon)overlayMap.get("salinitys");		      
+  		
+  				      }	
+  				      
+  				    	      
+  				      Filter filter_salinitys = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_salinitys));		      
+  				      Filter filter_properties_salinitys = ff.and(filter_properties, filter_salinitys);		      
+  				      SimpleFeatureIterator features_salinitys_iterator = properies_source.getFeatures(filter_properties_salinitys).features();
+  				      while (features_salinitys_iterator.hasNext()) {
+  				    	  SimpleFeature sf_salinitys = features_salinitys_iterator.next();
+  				    	  sf_salinitys.setAttribute("OL_Salinity", Boolean.TRUE);
+  				    	  if (sf_salinitys.getAttribute("OverlaysNum")==null)
+  				    	  {
+  				    		  sf_salinitys.setAttribute("OverlaysNum", 1);
+  				    	  }
+  				    	  else
+  				    	  {		 		    	  
+  				    	       sf_salinitys.setAttribute("OverlaysNum", Integer.parseInt(sf_salinitys.getAttribute("OverlaysNum").toString())+1);
+  				    	  }
+  				      }
+  				      features_salinitys_iterator.close();		
+  				  }
+  			      
+  			      
+  				  if (overlayMap.get("contaminations") != null)
+  				  {
+  				      Geometry polygon_contaminations1 =(Geometry)(overlayMap.get("contaminations"));
+  				      Object polygon_contaminations;
+  				      if (polygon_contaminations1.getGeometryType().equals("MultiPolygon"))
+  				      {
+  					       polygon_contaminations =(MultiPolygon)overlayMap.get("contaminations");		      
+  		
+  				      }
+  				      else
+  				      {
+  					       polygon_contaminations =(Polygon)overlayMap.get("contaminations");		      
+  		
+  				      }	
+  			      
+  				      Filter filter_contaminations = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_contaminations));		      
+  				      Filter filter_properties_contaminations = ff.and(filter_properties, filter_contaminations);		      
+  				      SimpleFeatureIterator features_contaminations_iterator = properies_source.getFeatures(filter_properties_contaminations).features();
+  				      while (features_contaminations_iterator.hasNext()) {
+  				    	  SimpleFeature sf_contaminations = features_contaminations_iterator.next();
+  				    	  sf_contaminations.setAttribute("OL_Contamination", Boolean.TRUE);
+  				    	  if (sf_contaminations.getAttribute("OverlaysNum")==null)
+  				    	  {
+  				    		  sf_contaminations.setAttribute("OverlaysNum", 1);
+  				    	  }
+  				    	  else
+  				    	  {	
+  				    	      sf_contaminations.setAttribute("OverlaysNum", Integer.parseInt(sf_contaminations.getAttribute("OverlaysNum").toString())+1);
+  				    	  }
+  				      }
+  				      features_contaminations_iterator.close();	
+  				  }
+  			      
+  				  
+  				  if (overlayMap.get("envSignificances") != null)
+  				  {
+  				      Geometry polygon_envSignificances1 =(Geometry)(overlayMap.get("envSignificances"));
+  				      Object polygon_envSignificances;
+  				      if (polygon_envSignificances1.getGeometryType().equals("MultiPolygon"))
+  				      {
+  					       polygon_envSignificances =(MultiPolygon)overlayMap.get("envSignificances");		      
+  		
+  				      }
+  				      else
+  				      {
+  					       polygon_envSignificances =(Polygon)overlayMap.get("envSignificances");		      
+  		
+  				      }	
+  			      
+  				      Filter filter_envSignificances = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_envSignificances));		      
+  				      Filter filter_properties_envSignificances = ff.and(filter_properties, filter_envSignificances);		      
+  				      SimpleFeatureIterator features_envSignificances_iterator = properies_source.getFeatures(filter_properties_envSignificances).features();
+  				      while (features_envSignificances_iterator.hasNext()) {
+  				    	  SimpleFeature sf_envSignificances = features_envSignificances_iterator.next();
+  				    	  sf_envSignificances.setAttribute("OL_EnvSignificance", Boolean.TRUE);
+  				    	  if (sf_envSignificances.getAttribute("OverlaysNum")==null)
+  				    	  {
+  				    		  sf_envSignificances.setAttribute("OverlaysNum", 1);
+  				    	  }
+  				    	  else
+  				    	  {	
+  				    	      sf_envSignificances.setAttribute("OverlaysNum", Integer.parseInt(sf_envSignificances.getAttribute("OverlaysNum").toString())+1);
+  				    	  }
+  				      }
+  				      features_envSignificances_iterator.close();
+  				  }
+  			      
+  			      
+  				  if (overlayMap.get("envAudits") != null)
+  				  {
+  				      Geometry polygon_envAudits1 =(Geometry)(overlayMap.get("envAudits"));
+  				      Object polygon_envAudits;
+  				      if (polygon_envAudits1.getGeometryType().equals("MultiPolygon"))
+  				      {
+  					       polygon_envAudits =(MultiPolygon)overlayMap.get("envAudits");		      
+  		
+  				      }
+  				      else
+  				      {
+  					       polygon_envAudits =(Polygon)overlayMap.get("envAudits");		      
+  		
+  				      }	
+  				      
+  				          
+  				      Filter filter_envAudits = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_envAudits));		      
+  				      Filter filter_properties_envAudits = ff.and(filter_properties, filter_envAudits);		      
+  				      SimpleFeatureIterator features_envAudits_iterator = properies_source.getFeatures(filter_properties_envAudits).features();
+  				      while (features_envAudits_iterator.hasNext()) {
+  				    	  SimpleFeature sf_envAudits = features_envAudits_iterator.next();
+  				    	  sf_envAudits.setAttribute("OL_EnvAudit", Boolean.TRUE);
+  				    	  if ( sf_envAudits.getAttribute("OverlaysNum")==null)
+  				    	  {
+  				    		  sf_envAudits.setAttribute("OverlaysNum", 1);
+  				    	  }
+  				    	  else
+  				    	  {	
+  				    	   
+  				    	      sf_envAudits.setAttribute("OverlaysNum", Integer.parseInt(sf_envAudits.getAttribute("OverlaysNum").toString())+1);
+  				    	  }
+  				      }
+  				      features_envAudits_iterator.close();	
+  				  }
+  			      
+  			      
+  				  if (overlayMap.get("heritages") != null)
+  				  {
+  				  
+  				      Geometry polygon_heritages1 =(Geometry)(overlayMap.get("heritages"));
+  				      Object polygon_heritages;
+  				      if (polygon_heritages1.getGeometryType().equals("MultiPolygon"))
+  				      {
+  					       polygon_heritages =(MultiPolygon)overlayMap.get("heritages");		      
+  		
+  				      }
+  				      else
+  				      {
+  					       polygon_heritages =(Polygon)overlayMap.get("heritages");		      
+  		
+  				      }	
+  				      
+  				      
+  				      Filter filter_heritages = ff.intersects(ff.property(properties_geometryAttributeName), ff.literal(polygon_heritages));		      
+  				      Filter filter_properties_heritages = ff.and(filter_properties, filter_heritages);		      
+  				      SimpleFeatureIterator features_heritages_iterator = properies_source.getFeatures(filter_properties_heritages).features();
+  				      while (features_heritages_iterator.hasNext()) {
+  				    	  SimpleFeature sf_heritages = features_heritages_iterator.next();
+  				    	  sf_heritages.setAttribute("OL_Heritage", Boolean.TRUE);
+  				    	  if ( sf_heritages.getAttribute("OverlaysNum")==null)
+  				    	  {
+  				    		  sf_heritages.setAttribute("OverlaysNum", 1);
+  				    	  }
+  				    	  else
+  				    	  {	
+  				    	      sf_heritages.setAttribute("OverlaysNum", Integer.parseInt(sf_heritages.getAttribute("OverlaysNum").toString())+1);
+  				    	  }
+  				      }
+  				      features_heritages_iterator.close();	
+  			      
+  				   }
+  				  
+  	      }//end if (anyOverlayChecked)
 			      
 			      //////
 			      
-			        SimpleFeatureIterator propertyItnew = null;
+			    SimpleFeatureIterator propertyItnew = null;
 					propertyItnew = propertiesnew.features();
 					int ii=0;
 					
@@ -1252,7 +1256,7 @@ public class DevelopmentPotentialServiceImpl implements DevelopmentPotentialServ
 						exportService.featuresExportToShapeFile(featureTypeNew, featureCollectionNew,newFile, dropCreateSchema);
 					}	
 				
-				}
+				
 				
 		       ////end ali
 		     
